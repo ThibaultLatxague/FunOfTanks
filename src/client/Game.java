@@ -9,26 +9,36 @@ import java.awt.Graphics;
 
 import gamestate.*;
 
+/**
+ * Central game class driving the update/render loop and holding game states.
+ * Manages the main game thread, state transitions and on-screen messages.
+ */
 public class Game implements Runnable {
 	
-	// private GameWindow window;
+	// Main panel used for rendering and input
 	private GamePanel panel;
+	// Thread running the main game loop
 	private Thread gameLoop;
+	// Target frames per second for rendering
 	public static final int FPS = 120;
+	// Target updates per second for game logic
 	public static final int UPS = 200;
 	
+	// The local player instance (can be null until created)
 	private Player player;
 	
+	// Different game state handlers
 	private Menu menu;
 	private Playing playing;
 	private Finish finish;
 	
+	// Transient messages shown on screen (error and general)
 	private static String errorMessage;
 	private static String message;
 	private Font errorMessageFont;
 	
 	public Game() {
-		
+		// Initialize panel, UI states and start the game loop
 		panel = new GamePanel(this);
 		menu = new Menu(this);
 		// window = new GameWindow(panel);
@@ -38,11 +48,13 @@ public class Game implements Runnable {
 	}
 	
 	private void startGameLoop() {
+		// Create and start the thread that runs the main loop (run method)
 		gameLoop = new Thread(this);
 		gameLoop.start();
 	}
 	
 	public void update() {
+		// Update logic depending on the current state
 		switch (GameState.state) {
 		case MENU:
 			menu.update();
@@ -57,6 +69,7 @@ public class Game implements Runnable {
 	}
 	
 	public void render(Graphics g) {
+		// Render current state and any overlay messages
 		switch (GameState.state) {
 		case MENU:
 			menu.draw(g);
@@ -82,7 +95,7 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-		
+		// Main game loop uses delta timing for both updates and renders.
 		double timePerFrame = 1_000_000_000.0 / FPS;
 		double timePerUpdate = 1_000_000_000.0 / UPS;
 		
@@ -123,11 +136,17 @@ public class Game implements Runnable {
 		}
 	}
 	
+	/**
+	 * Show a temporary error message on screen for a few seconds.
+	 */
 	public static void printErrorMessage(String msg) {
 		errorMessage = msg;
 		new Delay(3000, () -> errorMessage = null);
 	}
 	
+	/**
+	 * Show a temporary non-error message on screen for a few seconds.
+	 */
 	public static void printMessage(String msg) {
 		message = msg;
 		new Delay(3000, () -> message = null);

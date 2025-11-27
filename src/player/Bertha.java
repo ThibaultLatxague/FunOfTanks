@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import map.Obstacle;
 
+/**
+ * Bertha is a heavy projectile that creates an area-of-effect explosion when it detonates.
+ */
 public class Bertha extends Bullet {
 	
 	private Ellipse2D aoe = new Ellipse2D.Double(0, 0, 200, 200);

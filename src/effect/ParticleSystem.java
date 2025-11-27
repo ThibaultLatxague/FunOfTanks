@@ -1,4 +1,4 @@
- package effect;
+package effect;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -7,6 +7,10 @@ import utils.Calcul;
 import utils.Delay;
 import utils.Vector;
 
+/**
+ * Manages a pool of Particle instances used as a particle emitter.
+ * Provides methods to emit particles at once or at intervals and to update/draw them.
+ */
 public class ParticleSystem {
 
 	protected ArrayList<Particle> particles;
@@ -14,6 +18,7 @@ public class ParticleSystem {
 	private int offset;
 	
 	public ParticleSystem(Particle particle, int nb) {
+		// Create a pool of particles cloned from a template particle
 		spawnSize = particle.getSize();
 		particles = new ArrayList<>(nb);
 		for (int i = 0; i < nb; i++) {
@@ -23,6 +28,7 @@ public class ParticleSystem {
 	}
 	
 	public ParticleSystem(Particle particle, int nb, int offset) {
+		// Same as above but with a scheduling offset between particle spawns
 		spawnSize = particle.getSize();
 		particles = new ArrayList<>(nb);
 		for (int i = 0; i < nb; i++) {
@@ -31,6 +37,10 @@ public class ParticleSystem {
 		this.offset = offset;
 	}
 	
+	/**
+	 * Emit all particles immediately (but possibly staggered by offset).
+	 * min/max are degrees range for random emission direction.
+	 */
 	public void emit(int x, int y, int min, int max) {
 		double alpha = Math.toRadians(min);
 		double beta  = Math.toRadians(max);
@@ -42,6 +52,9 @@ public class ParticleSystem {
 		}
 	}
 	
+	/**
+	 * Emit particles only when dead, allowing continuous interval-style emission.
+	 */
 	public void interval(int x, int y, int min, int max) {
 		double alpha = Math.toRadians(min);
 		double beta  = Math.toRadians(max);
@@ -54,6 +67,9 @@ public class ParticleSystem {
 		}
 	}
 	
+	/**
+	 * Update active particles.
+	 */
 	public void update() {
 		if (particles.stream().filter(p -> !p.isDead()).count() > 0) {
 			for (Particle p : particles) {
@@ -62,12 +78,18 @@ public class ParticleSystem {
 		}
 	}
 	
+	/**
+	 * Draw all particles (active and inactive - draw method handles visibility).
+	 */
 	public void draw(Graphics g) {
 		for (Particle p : particles) {
 			p.draw(g);
 		}
 	}
 	
+	/**
+	 * Replace pool with new template copies.
+	 */
 	public void setTemplate(Particle p, int nb) {
 		particles.clear();
 		for (int i = 0; i < nb; i++) {
@@ -75,6 +97,9 @@ public class ParticleSystem {
 		}
 	}
 	
+	/**
+	 * Set lifetime for all particles (adjusts their size decrement).
+	 */
 	public void setLifetime(double lifetime) {
 		for (Particle p : particles)  {
 			p.setLifetime(spawnSize, lifetime);

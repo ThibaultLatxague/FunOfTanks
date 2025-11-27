@@ -1,5 +1,8 @@
 package serverClass;
 
+/**
+ * Lightweight DTO representing a tank on the server (position, orientation, color and owner).
+ */
 public class ServerTank {
 	public int x, y;
 	public double orientation;

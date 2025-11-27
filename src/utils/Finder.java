@@ -7,6 +7,10 @@ import serverClass.*;
 
 import player.Player;
 
+/**
+ * Small collection of lookup helpers used across client and server code to find
+ * players, tanks, bullets and obstacles by identifying attributes.
+ */
 public final class Finder {
 
 	public static Player findPlayer(String name, ArrayList<Player> players) {

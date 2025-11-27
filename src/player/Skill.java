@@ -12,6 +12,11 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import utils.Delay;
 
+/**
+ * Skill represents an activatable ability with a cooldown and visual icon.
+ * Contains several static factory helpers to construct common skills,
+ * and helpers to load/save skill assignments for a Player.
+ */
 public class Skill {
 	/*
 	* ajouter un systeme de capacité
@@ -81,6 +86,8 @@ public class Skill {
 		}
 	}
 	
+	// skill factory methods (speedUp, dashThrough, grosseBertha, tripleShot, grenade)
+	// each returns a Skill wrapping a Runnable effect that applies to the player's tank
 	public static Skill[] getAllSkills(Player p) {
 		Skill[] res = new Skill[5];
 		res[0] = speedUp(p);
@@ -162,6 +169,7 @@ public class Skill {
 		}
 	}
 	
+	// persistence helpers: loadSkills/saveSkills/parseSkill
 	public String getTitle() {
 		return title;
 	}

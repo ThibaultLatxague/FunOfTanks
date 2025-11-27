@@ -6,6 +6,10 @@ import java.awt.event.MouseMotionListener;
 import client.Game;
 import gamestate.GameState;
 
+/**
+ * Mouse listener that delegates mouse events to the active game state.
+ * This keeps input routing centralized and state-agnostic.
+ */
 public class MouseInput implements MouseListener, MouseMotionListener {
 	
 	private Game game;
@@ -16,6 +20,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseDragged(e);
@@ -31,6 +36,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseMoved(e);
@@ -46,6 +52,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseClicked(e);
@@ -61,6 +68,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mousePressed(e);
@@ -76,6 +84,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseReleased(e);
@@ -91,6 +100,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseEntered(e);
@@ -106,6 +116,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// Delegate to current state's handler
 		switch (GameState.state) {
 		case MENU:
 			game.getMenu().mouseExited(e);

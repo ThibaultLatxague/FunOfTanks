@@ -1,5 +1,8 @@
 package serverClass;
 
+/**
+ * Server-side representation of a connected player (name, ready flag, team).
+ */
 public class ServerPlayer {
 
 	public String name;

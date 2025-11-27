@@ -18,24 +18,38 @@ import player.TypeShot;
 import client.GamePanel;
 import input.PlayerInputs;
 
+/**
+ * Default playing state: manages players, obstacles, bullets and input handling.
+ * Responsible for updating all players, drawing the playfield and reacting to inputs.
+ */
 public class Playing implements Statemethods {
 
+	// Panel reference for dimensions and tiles
 	private GamePanel panel;
 
+	// Local player and list of all players
 	private Player player;
 	private ArrayList<Player> players;
+	// World obstacles and deferred add/remove lists to avoid concurrent modification
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Obstacle> obsToAdd = new ArrayList<Obstacle>();
 	private ArrayList<Obstacle> obsToRemove = new ArrayList<Obstacle>();
 
+	// Bullets coming from the server / enemies
 	private ArrayList<ServerBullet> enemiesBullets;
 
+	// Leaderboard data per player
 	private HashMap<Player, Stats> leaderBoard = new HashMap<>();
 
+	// Finish marker (0 = ongoing, otherwise winner team id)
 	protected int isFinish = 0;
 
+	// Whether to render the leaderboard overlay
 	private boolean drawLeaderBoard;
 
+	/**
+	 * Create a Playing instance, initialize world and spawn players.
+	 */
 	public Playing(GamePanel panel, Player player, ArrayList<Player> players) {
 		this.panel = panel;
 		this.player = player;
@@ -52,6 +66,7 @@ public class Playing implements Statemethods {
 
 	@Override
 	public void update() {
+		// Update every player and detect finish conditions
 		for (Player p : players) {
 			p.updatePlayer(getObstacles(), players);
 		}
@@ -65,6 +80,7 @@ public class Playing implements Statemethods {
 
 	@Override
 	public void draw(Graphics g) {
+		// Draw obstacles, players, bullets and overlays
 		for (Obstacle o : getObstacles()) {
 			o.drawObstacle(g);
 		}
@@ -89,6 +105,7 @@ public class Playing implements Statemethods {
 		}
 	}
 	
+	// Draws the leaderboard overlay when enabled
 	public void drawLeaderBoard(Graphics g) {
 		int i = 0;
 		g.setColor(new Color(255, 0, 0, 50));
@@ -196,6 +213,7 @@ public class Playing implements Statemethods {
 		}
 	}
 	
+	// Remove a server bullet and mark it as dead from player's perspective
 	public void deleteBullet(ServerBullet b) {
 		if (b != null) {
 			b.die(player);
@@ -220,6 +238,7 @@ public class Playing implements Statemethods {
 	}
 
 	private void setUpWalls() {
+		// Populate border obstacles around the map edges
 		for (int i = 0; i < panel.getDimension().getWidth(); i += panel.getTileSize()) {
 			getObstacles().add(new Obstacle(i, 0, false));
 			getObstacles().add(new Obstacle(i, (int) panel.getDimension().getHeight() - panel.getTileSize(), false));
@@ -231,7 +250,7 @@ public class Playing implements Statemethods {
 		}
 	}
 
-	// inputs
+	// INPUTS: mouse and keyboard handlers delegate to player's tank and skills
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (player.getTank() != null) {
@@ -305,6 +324,7 @@ public class Playing implements Statemethods {
 		return obsToAdd;
 	}
 	
+	// Handle pressed inputs (key codes or mouse buttons mapped via PlayerInputs)
 	public void handleInputsPressed(int keyCode) {
 		if (keyCode == PlayerInputs.up) {
 			if (player.getTank() != null) {
@@ -358,6 +378,7 @@ public class Playing implements Statemethods {
 		}
 	}
 	
+	// Handle released inputs and trigger actions on release (fire/drop/switch modes)
 	public void handleInputsReleased(int keyCode) {
 		if (keyCode == PlayerInputs.up) {
 			if (player.getTank() != null) {

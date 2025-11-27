@@ -9,6 +9,10 @@ import java.awt.geom.AffineTransform;
 
 import player.Player;
 
+/**
+ * Server-side bullet model used for broadcasting to clients.
+ * Contains drawing and hitbox update helpers, and a die hook to apply effects to a Player.
+ */
 public class ServerBullet {
 	
 	public int id;
@@ -32,6 +36,7 @@ public class ServerBullet {
 	}
 	
 	public void draw(Graphics g) {
+		// Draw the bullet rotated by its orientation
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(color);
 		
@@ -45,6 +50,7 @@ public class ServerBullet {
 	}
 	
 	public void update(int x, int y, boolean holding) {
+		// Update server-side position and holding flag
 		this.x = x;
 		this.y = y;
 		this.holding = holding;
@@ -52,10 +58,12 @@ public class ServerBullet {
 	}
 	
 	public void updateHitbox() {
+		// Update the rectangle hitbox to the current coordinates
 		hitbox.setBounds((int)x, (int)y, 20, 10);
 	}
 	
 	public void die(Player p) {
+		// Default die effect: small blowup on the specified player
 		p.blowup(x, y, .2);
 	}
 }

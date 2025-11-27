@@ -2,6 +2,10 @@ package utils;
 
 import client.Game;
 
+/**
+ * Small string-format helpers. Currently contains a simple IP validation helper
+ * (used by UI). Note: the implementation expects dotted decimal IPv4 strings.
+ */
 public class StringFormat {
 	
 	public static boolean isIP(String str) {

@@ -11,12 +11,17 @@ import client.Game;
 import client.GamePanel;
 import player.Player;
 
+/**
+ * End-of-game state which shows a finish pop-up and allows user interaction
+ * (restart, return to menu, etc.). Delegates input and rendering to its PopUpMenu.
+ */
 public class Finish implements Statemethods {
 	
 	private PopUpMenu menu;
 	private ArrayList<Player> players;
 	
 	public Finish(int winner, Color c, Game game, ArrayList<Player> players) {
+		// Clear current playing state and create Finish menu
 		game.setPlaying(null);
 		this.players = players;
 		menu = new FinishMenu(GamePanel.dimension.width/2-500, 50, game, c, this);

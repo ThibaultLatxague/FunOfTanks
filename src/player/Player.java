@@ -20,6 +20,10 @@ import java.net.InetAddress;
 
 import map.Obstacle;
 
+/**
+ * Represents a player in the game, owning a Tank and optionally a network Client/Server.
+ * Manages skills, particle effects (blowup/debris/trainee), and respawn/lifecycle behavior.
+ */
 public class Player {
 
 	// idees
@@ -76,6 +80,7 @@ public class Player {
 	
 	private int team;
 	
+	// networking helpers (server/client) and constructors
 	public Player(String name, Role role, Game game, boolean isMain) {
 		this.game = game;
 		this.name = name;
@@ -116,6 +121,7 @@ public class Player {
 		setReady(false);
 	}
 
+	// tank creation, deletion and particle effect wrappers
 	public void createTank(int x, int y) {
 		tank = new Tank(x, y, this);
 		if (client != null)
@@ -157,6 +163,7 @@ public class Player {
 		}
 	}
 
+	// update/draw methods and skill UI drawing
 	public void updatePlayer(ArrayList<Obstacle> obs, ArrayList<Player> players) {
 		if (tank != null) {
 			tank.update(obs, players, this);

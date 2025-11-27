@@ -14,6 +14,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
+/**
+ * Base projectile used by Cannon. Handles movement, hitbox updates, detection of players and obstacles,
+ * and notifies the owner's client/server when bullets are updated or removed.
+ */
 public class Bullet {
 
 	public static int counter = 0;

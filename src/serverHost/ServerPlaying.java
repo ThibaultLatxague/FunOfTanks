@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import map.Obstacle;
 import serverClass.*;
 
-
+/**
+ * Server-side model of the playing state. Holds lists of server-side players, tanks, bullets and obstacles.
+ * Used by the authoritative server logic to track and broadcast game state.
+ */
 public class ServerPlaying {
 	
 	ArrayList<ServerPlayer> players;

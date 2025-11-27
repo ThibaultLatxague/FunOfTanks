@@ -10,6 +10,10 @@ import map.Obstacle;
 import utils.Calcul;
 import utils.Delay;
 
+/**
+ * Grenade is a special Bullet that changes color over time and explodes after a delay,
+ * causing area-of-effect damage and destroying destructible obstacles.
+ */
 public class Grenade extends Bullet {
 	
 	private double diam = 15;

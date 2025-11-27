@@ -11,6 +11,10 @@ import java.util.HashSet;
 
 import gamestate.Playing;
 
+/**
+ * Zone represents a capture area used by Domination mode.
+ * It tracks players currently inside, mixes colors for visualization and accumulates score over time.
+ */
 public class Zone {
 	private Ellipse2D hitbox;
 	
@@ -27,6 +31,10 @@ public class Zone {
 		playing = p;
 	}
 	
+	/**
+	 * Update the zone state, tracking which players are inside
+	 * and updating the point total based on player presence.
+	 */
 	public void update() {
 		for (Player p : playing.getPlayers()) {
 			if (p.getTank() != null && hitbox.contains(p.getTank().getCenter())) {
@@ -48,11 +56,24 @@ public class Zone {
 		}
 	}
 	
+	/**
+	 * Draw the zone on the given graphics context.
+	 * The zone is drawn as a filled oval with the mixed color
+	 * representing the current players inside it.
+	 * 
+	 * @param g the graphics context to draw on
+	 */
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillOval((int)hitbox.getX(), (int)hitbox.getY(), (int)hitbox.getWidth(), (int)hitbox.getHeight());
 	}
 	
+	/**
+	 * Mix the colors of the players currently in the zone to
+	 * produce a visual representation of control.
+	 * 
+	 * @return the mixed color for the zone
+	 */
 	private Color mixColor() {
 		int r = 0;
 		int g = 0;

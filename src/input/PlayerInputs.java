@@ -9,8 +9,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 
+/**
+ * Static holder for configurable player input bindings.
+ * Values are public static so the rest of the code can read/write them directly.
+ * Includes helpers to load/save bindings from disk and to reset to defaults.
+ */
 public class PlayerInputs {
 	
+	// Mouse / keyboard bindings (defaults)
 	public static int aim = MouseEvent.BUTTON1;
 	public static int blocMode = MouseEvent.BUTTON3;
 	public static int grabMode = MouseEvent.BUTTON2;
@@ -26,10 +32,12 @@ public class PlayerInputs {
 	public static int escape = KeyEvent.VK_ESCAPE;
 	public static int leaderBoard = KeyEvent.VK_TAB;
 	
+	// Return reflection Field array for persistence/UI introspection
 	public static Field[] getKeyBindings() {
         return PlayerInputs.class.getDeclaredFields();
 	}
 	
+	// Reset all bindings to the hard-coded defaults
 	public static void reset() {
 		aim = MouseEvent.BUTTON1;
 		blocMode = MouseEvent.BUTTON3;
@@ -47,6 +55,7 @@ public class PlayerInputs {
 		leaderBoard = KeyEvent.VK_TAB;
 	}
 	
+	// Load bindings from a simple semicolon-separated "key:val;" file
 	public static void loadInputs() {
 		try {
 			File f = new File("res/inputs");
@@ -78,6 +87,7 @@ public class PlayerInputs {
 		}
 	}
 	
+	// Save current bindings to disk in same "key:val;" format
 	public static void saveInputs() {
 		try {
 			File f = new File("res/inputs");

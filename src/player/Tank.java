@@ -19,6 +19,11 @@ import utils.Calcul;
 import utils.Delay;
 import map.Obstacle;
 
+/**
+ * Represents a player's tank: position, movement, aiming, modes and rendering.
+ * Handles movement (including dash), collision with obstacles, firing via Cannon,
+ * and mode-based behaviors (AIM, BLOC, GRAB).
+ */
 public class Tank {
 
 	public final int BASE_SPEED = 1;
@@ -104,6 +109,12 @@ public class Tank {
 		
 	}
 
+	/**
+	 * Moves the tank in the specified direction, checking for collisions with obstacles.
+	 * @param deltaX Change in x (horizontal movement)
+	 * @param deltaY Change in y (vertical movement)
+	 * @param obs List of obstacles to check for collisions
+	 */
 	public void move(int deltaX, int deltaY, ArrayList<Obstacle> obs) {
 		if (inDash) {
 			if (!canDashThrough) {
@@ -132,6 +143,12 @@ public class Tank {
 		}
 	}
 
+	/**
+	 * Initiates the dash action, allowing the tank to move quickly in the
+	 * desired direction. Collision with obstacles is temporarily ignored.
+	 * Dash has a cooldown period before it can be used again.
+	 * @param obs List of obstacles to check for collisions
+	 */
 	public void dash(ArrayList<Obstacle> obs) {
 		if (canDash) {
 			inDash = true;
@@ -145,6 +162,10 @@ public class Tank {
 
 	}
 
+	/**
+	 * Calculates the orientation of the tank based on the target's position.
+	 * The orientation is used for aiming and firing the cannon.
+	 */
 	private void findOrientation() {
 		Vector vector = new Vector((target.x - x), (target.y - y) * -1);
 		if (vector.x != 0) {
@@ -158,6 +179,10 @@ public class Tank {
 		}
 	}
 
+	/**
+	 * Updates the tank's hitbox and grabHitbox positions and sizes based on the
+	 * current x, y coordinates and orientation of the tank.
+	 */
 	public void updateHitbox() {
 		hitbox.setBounds(x - displayOffset, y - displayOffset, size, size);
 		center.x = (int)hitbox.getCenterX();
@@ -165,22 +190,47 @@ public class Tank {
 		grabHitbox.setFrame(hitbox.getX() - displayOffset + Math.cos(orientation*(Math.PI/180.0)) * (grabRange/1.5), hitbox.getY() - displayOffset + Math.sin(orientation*(Math.PI/180.0)) * (grabRange/1.5), grabRange, grabRange);
 	}
 
+	/**
+	 * Detects if the tank's hitbox intersects with the given obstacle's hitbox.
+	 * @param obstacle The obstacle to check collision with
+	 * @param x The x coordinate to check
+	 * @param y The y coordinate to check
+	 * @return true if there is a collision, false otherwise
+	 */
 	private boolean detectObstacle(Obstacle obstacle, int x, int y) {
 		return obstacle.getHitbox().intersects(new Rectangle(x - displayOffset, y - displayOffset, size, size));
 	}
 
+	/**
+	 * Fires the cannon at the current aim position.
+	 * The tank must not be invincible (unless it's ChickenJoe) to fire.
+	 */
 	public void fire() {
 		if (!invinsible || owner.getName().equals("ChickenJoe")) {
 			cannon.fire(x, y, (int) aim.x, (int) aim.y, orientation);	
 		}
 	}
 	
+	/**
+	 * Fires the cannon in the direction of the current target.
+	 * The tank must not be invincible (unless it's ChickenJoe) to fire.
+	 */
 	public void fireDir() {
 		if (!invinsible || owner.getName().equals("ChickenJoe")) {
 			cannon.fire(x, y, (int) target.x, (int) target.y, orientation);	
 		}
 	}
 
+	/**
+	 * Attempts to drop an obstacle at the specified location.
+	 * The obstacle can be destructible or indestructible based on the parameter.
+	 * Checks for collisions with other players and obstacles before placing.
+	 * @param x X coordinate to drop the obstacle
+	 * @param y Y coordinate to drop the obstacle
+	 * @param destructible True if the obstacle can be destroyed, false otherwise
+	 * @param players List of players to check for collisions
+	 * @param obstacles List of obstacles to check for collisions
+	 */
 	public void dropObstacle(int x, int y, boolean destructible, ArrayList<Player> players,
 			ArrayList<Obstacle> obstacles) {
 		if (mode == PlayerMode.BLOC) {
@@ -210,6 +260,13 @@ public class Tank {
 		}
 	}
 
+	/**
+	 * Main update method for the tank. Updates position, orientation, hitbox,
+	 * and cannon. Also handles network updates for the main player.
+	 * @param obs List of obstacles in the game
+	 * @param players List of players in the game
+	 * @param player The local player
+	 */
 	public void update(ArrayList<Obstacle> obs, ArrayList<Player> players, Player player) {
 		if (owner.isMain()) {
 			if (up) {
@@ -277,6 +334,10 @@ public class Tank {
 		cannon.updateCannon(obs, players, player);
 	}
 
+	/**
+	 * Draws the tank, its cannon, possible obstacle, and crosshair (if in AIM mode).
+	 * @param g Graphics context to draw on
+	 */
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillRect(x - displayOffset, y - displayOffset, size, size);

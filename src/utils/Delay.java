@@ -1,6 +1,9 @@
 package utils;
 
-
+/**
+ * Lightweight helper to schedule a Runnable after a delay (optionally repeated).
+ * Starts a background thread that sleeps and executes the provided runnable.
+ */
 public class Delay implements Runnable {
 	
 	private long millisBeforePerformAction;

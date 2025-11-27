@@ -7,6 +7,10 @@ import java.net.Socket;
 
 import client.Game;
 
+/**
+ * Client-side helper used when running a local host: opens TCP and UDP connections to the local server.
+ * Provides send/sendUDP and close helpers used by Player to communicate with the server.
+ */
 public class Client {
 
 	private Socket socket;
@@ -26,10 +30,12 @@ public class Client {
 		new Thread(udpConn).start();
 	}
 	
+	/** Send a TCP command to the server. */
 	public void send(String msg) {
 		out.println(msg);
 	}
 	
+	/** Send a UDP message to the server (real-time updates). */
 	public void sendUDP(String msg) {
 		udpConn.send(msg, serverIP);
 	}

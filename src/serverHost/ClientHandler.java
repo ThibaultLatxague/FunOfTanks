@@ -10,6 +10,10 @@ import player.TypeShot;
 import serverClass.*;
 import utils.Finder;
 
+/**
+ * Per-connection TCP handler on the server side.
+ * Reads client requests, updates server model (ServerPlaying) and broadcasts changes to other clients.
+ */
 public class ClientHandler implements Runnable {
 	
 	private Socket client;
@@ -32,6 +36,7 @@ public class ClientHandler implements Runnable {
 
 	@Override
 	public void run() {
+		// Read loop: parse client requests and update server-side game state
 		try {
 			while (running) {
 				String request = in.readLine();
@@ -141,6 +146,7 @@ public class ClientHandler implements Runnable {
 		}
 	}
 	
+	// Utility helpers for broadcasting and parsing incoming requests
 	private String stringifyServerPlayers(ArrayList<ServerPlayer> players) {
 		String res = "players";
 		for (ServerPlayer p : players) {

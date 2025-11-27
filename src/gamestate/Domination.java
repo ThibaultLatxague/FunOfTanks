@@ -10,8 +10,13 @@ import map.Zone;
 import player.Player;
 import utils.Delay;
 
+/**
+ * Domination game mode: teams capture/hold a central zone to score points.
+ * When points reach FINISH_POINTS (positive or negative) the game ends.
+ */
 public class Domination extends TeamMode {
 	
+	// Points threshold to end the match
 	public static final int FINISH_POINTS = 10000;
 	
 	private Zone zone;
@@ -23,6 +28,7 @@ public class Domination extends TeamMode {
 	
 	@Override
 	public void update() {
+		// Update zone control then default playing logic; set finish when threshold reached
 		zone.update();
 		super.update();
 		if (zone.getPoints() >= FINISH_POINTS) {
@@ -40,6 +46,7 @@ public class Domination extends TeamMode {
 	
 	@Override
 	public void draw(Graphics g) {
+		// Draw domination zone and then base playing elements and a simple progress UI
 		zone.draw(g);
 		super.draw(g);
 		g.setColor(Color.RED);
@@ -51,5 +58,4 @@ public class Domination extends TeamMode {
 	public Zone getZone() {
 		return zone;
 	}
- 
 }

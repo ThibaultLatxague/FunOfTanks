@@ -12,6 +12,10 @@ import serverClass.ServerBullet;
 import serverClass.ServerTank;
 import utils.Finder;
 
+/**
+ * Simple UDP server that receives lightweight real-time updates (tank positions, bullets, points)
+ * and forwards them to all connected UDP clients.
+ */
 public class UDPServer implements Runnable {
 	
 	public static final int PORT = 4552;
@@ -34,6 +38,7 @@ public class UDPServer implements Runnable {
 
 	@Override
 	public void run() {
+		// Listen loop: receive datagrams and broadcast or act on them
 		while (running) {
 			try {
 				DatagramPacket packet = new DatagramPacket(data, data.length);
@@ -75,6 +80,7 @@ public class UDPServer implements Runnable {
 	}
 
 	private void sendToAll(String msg) {
+		// Broadcast the supplied message to all known UDP client addresses/ports
 		byte[] response = msg.getBytes();
 		for (Map.Entry<InetAddress, Integer> a : clients.entrySet()) {
 			DatagramPacket toSend = new DatagramPacket(response, response.length, a.getKey(), a.getValue());

@@ -17,6 +17,10 @@ import java.net.SocketException;
 
 import client.Game;
 
+/**
+ * Listens for UDP packets from the server and updates the local game accordingly.
+ * The thread receives datagrams, parses header/body and applies updates depending on the current GameState.
+ */
 public class UDPServerConnection implements Runnable {
 
 	private DatagramSocket socket;
@@ -36,6 +40,7 @@ public class UDPServerConnection implements Runnable {
 	
 	@Override
 	public void run() {
+		// Main loop: receive UDP datagrams and dispatch to the appropriate game update logic
 		while (running) {
 			try {
 				byte[] data = new byte[1024];
@@ -90,6 +95,9 @@ public class UDPServerConnection implements Runnable {
 		}
 	}
 	
+	/**
+	 * Send a UDP message to the provided InetAddress (used for client -> server UDP).
+	 */
 	public void send(String mes, InetAddress ip) {
 		byte[] toSend = mes.getBytes();
 		DatagramPacket packet = new DatagramPacket(toSend, toSend.length, ip, UDPServer.PORT);
@@ -100,6 +108,9 @@ public class UDPServerConnection implements Runnable {
 		}
 	}
 	
+	/**
+	 * Stop the thread and close the socket.
+	 */
 	public void close() {
 		running = false;
 		socket.close();

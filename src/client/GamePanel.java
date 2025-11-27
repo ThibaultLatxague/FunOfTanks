@@ -9,14 +9,21 @@ import javax.swing.JPanel;
 import input.KeyboardInput;
 import input.MouseInput;
 
+/**
+ * Swing panel that hosts the game's rendering surface and input listeners.
+ * Holds fixed game window dimensions and tile size constants.
+ */
 public class GamePanel extends JPanel{
 	
+	// Fixed window dimension for the game
 	public static final Dimension dimension = new Dimension(1250, 800);
 	private Game game;
 	
+	// Tile size used throughout the game world rendering / layout
 	public static final int tileSize = 50;
 	
 	public GamePanel(Game game) {
+		// Setup panel and input listeners
 		this.game = game;
 		MouseInput mouse = new MouseInput(game);
 		setPanelSize();
@@ -29,7 +36,8 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * Graphic loop
+	 * Graphic loop - called by Swing when repainting.
+	 * Delegates actual rendering to Game.render(...)
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

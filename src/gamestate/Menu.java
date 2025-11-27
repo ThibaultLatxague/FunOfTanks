@@ -15,18 +15,26 @@ import client.Game;
 import client.GamePanel;
 import player.Player;
 
+/**
+ * Main menu state. Renders top-level buttons and delegates to sub-menus:
+ * HostMenu, JoinMenu and Settings. Also manages an optional cancel button when hosting/joining.
+ */
 public class Menu implements Statemethods {
 
 	private Game game;
 
+	// Top-level buttons on the main menu
 	private ArrayList<Button> buttons;
 
+	// List and status for online players (when in join/lobby state)
 	private String playersPresent;
 	private ArrayList<Player> players;
 	
+	// Cancel button displayed when connecting/hosting
 	private Button cancelButton;
 	private boolean activeCancelButton;
 	
+	// Sub-menus
 	private HostMenu hostMenu;
 	private JoinMenu joinMenu;
 	private Settings settings;
@@ -66,6 +74,7 @@ public class Menu implements Statemethods {
 
 	@Override
 	public void update() {
+		// Update buttons and any active sub-menu
 		for (Button b : buttons) {
 			b.update();
 		}
@@ -83,6 +92,7 @@ public class Menu implements Statemethods {
 
 	@Override
 	public void draw(Graphics g) {
+		// Draw background, menu panel, buttons and sub-menus
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, GamePanel.dimension.width, GamePanel.dimension.height);
 		g.setColor(Color.lightGray);
@@ -105,18 +115,7 @@ public class Menu implements Statemethods {
 		if (activeCancelButton) cancelButton.draw(g);
 	}
 
-	// inputs
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-
-	}
-
+	// INPUTS: route clicks to sub-menus when present, otherwise process main buttons
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (hostMenu != null) {
@@ -132,6 +131,17 @@ public class Menu implements Statemethods {
 			}
 		}
 		if (activeCancelButton) cancelButton.onClick(e);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
 	}
 
 	@Override

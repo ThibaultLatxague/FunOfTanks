@@ -9,6 +9,10 @@ import client.Game;
 import input.PlayerInputs;
 import utils.Delay;
 
+/**
+ * Settings popup that allows remapping player input bindings.
+ * Uses reflection over PlayerInputs fields to present and modify bindings.
+ */
 public class Settings extends PopUpMenu {
 	
 	private String waitForInput = null;

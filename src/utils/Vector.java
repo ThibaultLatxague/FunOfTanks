@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Simple 2D vector container with basic operations used for particle and movement math.
+ */
 public class Vector {
 	
 	public double x, y;

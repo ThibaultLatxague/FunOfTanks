@@ -12,6 +12,10 @@ import gamestate.GameMode;
 import player.Player;
 import player.Skill;
 
+/**
+ * Base class for popup menus used in-game (HostMenu, JoinMenu, FinishMenu, Settings).
+ * Provides common layout, a skill side-panel toggle and helper rendering for player lists.
+ */
 public abstract class PopUpMenu {
 	
 	protected int x, y, width, height;

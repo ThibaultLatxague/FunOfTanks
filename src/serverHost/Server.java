@@ -6,6 +6,10 @@ import java.util.concurrent.Executors;
 import java.io.IOException;
 import java.net.*;
 
+/**
+ * TCP game server that accepts client connections and dispatches ClientHandler tasks.
+ * Holds a ServerPlaying instance representing authoritative game state.
+ */
 public class Server implements Runnable {
 	public static final int PORT = 4551;
 
@@ -31,6 +35,7 @@ public class Server implements Runnable {
 
 	@Override
 	public void run() {
+		// Accept loop: accept new TCP clients and create handlers
 		while (running) {
 			try {
 				Socket client = server.accept();
@@ -48,6 +53,7 @@ public class Server implements Runnable {
 	}
 	
 	public void close() {
+		// Shut down the server socket, client handlers and thread pool
 		running = false;
 	    try {
 	        if (server != null && !server.isClosed()) {

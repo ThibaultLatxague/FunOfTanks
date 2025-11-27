@@ -22,6 +22,9 @@ import player.Skill;
 import serverHost.Role;
 import serverHost.Server;
 
+/**
+ * Host menu UI: create a local host player, start the local server and display local IP/port.
+ */
 public class HostMenu extends PopUpMenu {
 
 	private TextInput name;

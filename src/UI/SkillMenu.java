@@ -11,6 +11,9 @@ import java.util.Map;
 import player.Player;
 import player.Skill;
 
+/**
+ * Displays available skills and allows assigning them into the player's three slots.
+ */
 public class SkillMenu {
 	
 	private Player player;

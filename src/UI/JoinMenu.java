@@ -11,6 +11,10 @@ import player.Player;
 import player.Skill;
 import serverHost.Role;
 
+/**
+ * Join menu UI: create a guest player and connect to a remote server.
+ * Collects name, IP and port via TextInput widgets.
+ */
 public class JoinMenu extends PopUpMenu {
 
 	private TextInput name;

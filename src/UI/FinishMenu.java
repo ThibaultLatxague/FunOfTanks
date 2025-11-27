@@ -12,6 +12,10 @@ import gamestate.TeamMode;
 import player.Skill;
 import serverHost.Role;
 
+/**
+ * Finish menu shown when a match ends. Allows the host to start a new match
+ * and players to ready up or return to the main menu.
+ */
 public class FinishMenu extends PopUpMenu {
 
 	public FinishMenu(int x, int y, Game game, Color winnerColor, Finish finish) {

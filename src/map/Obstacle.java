@@ -7,6 +7,10 @@ import java.awt.Graphics2D;
 
 import utils.Calcul;
 
+/**
+ * Obstacles are static map elements with a rectangular hitbox.
+ * They may be destructible or not and have special colors for placement preview.
+ */
 public class Obstacle {
 	
 	public static Color normal = new Color(204, 102, 0);

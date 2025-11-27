@@ -7,6 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * Simple clickable UI button with a rounded rectangle hitbox and an associated action.
+ */
 public class Button {
 
 	private String text;

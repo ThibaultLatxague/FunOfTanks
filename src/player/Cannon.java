@@ -12,6 +12,11 @@ import utils.Calcul;
 import utils.Delay;
 import map.Obstacle;
 
+/**
+ * Cannon handles firing bullets for a Tank: maintains bullet list, shot type and firing cooldown.
+ * Responsible for drawing the cannon (including special visuals for different shot types),
+ * updating active bullets and creating new bullets on fire().
+ */
 public class Cannon {
 
 	private Color color;
@@ -37,6 +42,14 @@ public class Cannon {
 		this.owner = owner;
 	}
 
+	/**
+	 * Draws the cannon and its bullets on the screen.
+	 * 
+	 * @param g Graphics context to draw on
+	 * @param x X position of the cannon
+	 * @param y Y position of the cannon
+	 * @param orientation Orientation angle of the cannon
+	 */
 	public void drawCannon(Graphics g, int x, int y, double orientation) {
 		for (Bullet b : bullets) {
 			b.draw(g);
@@ -86,6 +99,13 @@ public class Cannon {
 		g2d.fill(rotated);
 	}
 
+	/**
+	 * Updates the state of the cannon and its bullets.
+	 * 
+	 * @param obs List of obstacles in the game
+	 * @param players List of players in the game
+	 * @param player The player who owns this cannon
+	 */
 	public void updateCannon(ArrayList<Obstacle> obs, ArrayList<Player> players, Player player) {
 		if (shot == TypeShot.TRIPLE) {
 			owner.setMaxRange(300);
@@ -100,6 +120,15 @@ public class Cannon {
 		bullets.removeAll(haveToRemove);
 	}
 
+	/**
+	 * Fires a bullet from the cannon towards the specified target.
+	 * 
+	 * @param x X position of the cannon
+	 * @param y Y position of the cannon
+	 * @param targetX X position of the target
+	 * @param targetY Y position of the target
+	 * @param orientation Orientation angle of the cannon
+	 */
 	public void fire(int x, int y, int targetX, int targetY, double orientation) {
 		if (canFire) {
 			canFire = false;

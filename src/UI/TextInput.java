@@ -10,6 +10,10 @@ import java.util.Arrays;
 
 import client.Game;
 
+/**
+ * Text input widget used by the UI menus.
+ * Supports simple editing, cursor movement and mouse selection.
+ */
 public class TextInput {
 
 	private int x, y, width, height;

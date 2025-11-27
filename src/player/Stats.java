@@ -1,5 +1,9 @@
 package player;
 
+/**
+ * Simple player statistics container used for leaderboards.
+ * Contains kills, deaths and helper to compute kill/death ratio.
+ */
 public class Stats {
 	
 	public static final int STATS_NUMBER = 3;

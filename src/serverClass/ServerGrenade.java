@@ -7,6 +7,10 @@ import client.Game;
 import player.Grenade;
 import player.Player;
 
+/**
+ * Server-side visual model of a grenade projectile. Mirrors client-side grenade behavior
+ * for minimal remote visualization (color change, size animation).
+ */
 public class ServerGrenade extends ServerBullet {
 
 	private double diam = 15;

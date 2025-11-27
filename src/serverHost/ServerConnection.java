@@ -20,6 +20,10 @@ import player.TypeShot;
 import serverClass.*;
 import utils.Finder;
 
+/**
+ * Handles incoming TCP messages from the authoritative server and updates the local Game.
+ * This runs on a dedicated thread and parses lines sent by the server (header;body...).
+ */
 public class ServerConnection implements Runnable {
 
 	private Socket server;
@@ -37,6 +41,7 @@ public class ServerConnection implements Runnable {
 
 	@Override
 	public void run() {
+		// Read loop: parse server messages and mutate client-side game/menu/playing state accordingly
 		String serverResponse;
 		try {
 			while (running) {
@@ -190,6 +195,7 @@ public class ServerConnection implements Runnable {
 	}
 
 	public void close() {
+		// Gracefully stop the connection listener and close resources
 		running = false;
 		try {
 			in.close();

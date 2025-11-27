@@ -3,6 +3,9 @@ package serverClass;
 import java.awt.Color;
 import player.Player;
 
+/**
+ * Server-side Bertha: heavy projectile that triggers a larger blowup on die().
+ */
 public class ServerBertha extends ServerBullet {
 
 	public ServerBertha(int x, int y, double o, String owner, int id) {

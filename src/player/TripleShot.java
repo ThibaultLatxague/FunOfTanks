@@ -1,5 +1,9 @@
 package player;
 
+/**
+ * TripleShot spawns two additional bullets at ±DISPERSION degrees to simulate a spread shot.
+ * It also notifies the server (via client) about the new bullets and registers them with the owner's cannon.
+ */
 public class TripleShot extends Bullet {
 	
 	public static final int DISPERSION = 30;
