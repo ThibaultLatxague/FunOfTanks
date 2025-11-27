@@ -11,7 +11,7 @@ import gamestate.*;
 
 public class Game implements Runnable {
 	
-	private GameWindow window;
+	// private GameWindow window;
 	private GamePanel panel;
 	private Thread gameLoop;
 	public static final int FPS = 120;
@@ -31,7 +31,7 @@ public class Game implements Runnable {
 		
 		panel = new GamePanel(this);
 		menu = new Menu(this);
-		window = new GameWindow(panel);
+		// window = new GameWindow(panel);
 		errorMessageFont = new Font("SansSerif", Font.PLAIN, 30);
 		panel.requestFocus();
 		startGameLoop();
@@ -88,8 +88,8 @@ public class Game implements Runnable {
 		
 		long previousTime = System.nanoTime();
 		
-		int frames = 0;
-		int updates = 0;
+		// int frames = 0;
+		// int updates = 0;
 		long lastCheck = System.currentTimeMillis();
 		
 		double deltaU = 0.;
@@ -104,21 +104,21 @@ public class Game implements Runnable {
 			
 			if (deltaU >= 1) {
 				update();
-				updates++;
+				// updates++;
 				deltaU--;
 			}
 			
 			if (deltaF >= 1) {
 				panel.repaint();
-				frames++;
+				// frames++;
 				deltaF--;
 			}
 			
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
 				//System.out.println("FPS : " + frames + " | UPS : " + updates);
-				frames = 0;
-				updates = 0;
+				// frames = 0;
+				// updates = 0;
 			}
 		}
 	}

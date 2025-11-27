@@ -8,7 +8,6 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
 import player.Player;
-import player.TypeShot;
 
 public class ServerBullet {
 	

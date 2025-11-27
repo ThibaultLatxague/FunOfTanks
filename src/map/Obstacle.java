@@ -1,7 +1,6 @@
 package map;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

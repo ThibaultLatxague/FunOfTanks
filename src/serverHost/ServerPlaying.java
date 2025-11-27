@@ -1,7 +1,6 @@
 package serverHost;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import map.Obstacle;
 import serverClass.*;

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import client.Game;
-import utils.StringFormat;
 
 public class TextInput {
 

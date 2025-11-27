@@ -2,8 +2,6 @@ package effect;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import effect.Shape;
 
 import client.Game;
 import utils.Vector;

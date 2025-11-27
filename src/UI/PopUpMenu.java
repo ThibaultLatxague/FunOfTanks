@@ -11,7 +11,6 @@ import client.GamePanel;
 import gamestate.GameMode;
 import player.Player;
 import player.Skill;
-import utils.Finder;
 
 public abstract class PopUpMenu {
 	

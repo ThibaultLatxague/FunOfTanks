@@ -1,11 +1,7 @@
  package effect;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Timer;
 
 import utils.Calcul;
 import utils.Delay;

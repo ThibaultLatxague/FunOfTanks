@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 
 import player.Player;
-import player.Tank;
 import serverHost.Role;
 
 import java.util.HashSet;
